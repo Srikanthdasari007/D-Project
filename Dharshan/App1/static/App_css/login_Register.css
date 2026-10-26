@@ -1,0 +1,334 @@
+/* ==========================================
+   DHARSHAN PORTAL - LOGIN & REGISTER
+========================================== */
+
+/* Full-page temple wallpaper */
+
+.auth-page {
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+
+    background-image:
+        linear-gradient(
+            135deg,
+            rgba(49, 10, 18, 0.78),
+            rgba(104, 24, 39, 0.60),
+            rgba(30, 20, 16, 0.72)
+        ),
+        url("../App_Images/wallpaper.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Center the form */
+
+.auth-overlay {
+    min-height: 100vh;
+    padding: 40px 18px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-sizing: border-box;
+}
+
+/* Glass-effect form card */
+
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+    padding: 38px 35px;
+
+    box-sizing: border-box;
+
+    background: rgba(255, 250, 242, 0.94);
+
+    border: 2px solid rgba(237, 190, 96, 0.9);
+    border-radius: 24px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.38),
+        0 0 25px rgba(255, 196, 91, 0.15);
+
+    text-align: center;
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    animation: authAppear 0.7s ease;
+}
+
+/* Register form */
+
+.register-card {
+    max-width: 480px;
+    padding: 30px 35px;
+}
+
+/* Temple icon */
+
+.auth-logo {
+    width: 72px;
+    height: 72px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(135deg, #701c28, #b53a42);
+
+    border: 3px solid #e6bd69;
+    border-radius: 50%;
+
+    font-size: 36px;
+
+    box-shadow: 0 5px 18px rgba(112, 28, 40, 0.25);
+}
+
+/* Badge */
+
+.auth-badge {
+    display: inline-block;
+
+    padding: 7px 16px;
+
+    border-radius: 30px;
+
+    background: #f7e5bd;
+    color: #701c28;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+/* Heading */
+
+.auth-card h1 {
+    margin: 18px 0 10px;
+
+    color: #701c28;
+
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.auth-subtitle {
+    margin: 0 0 26px;
+
+    color: #77615a;
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* Form */
+
+.auth-form {
+    text-align: left;
+}
+
+.input-group {
+    margin-bottom: 19px;
+}
+
+.input-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #54202a;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* Input fields */
+
+.input-group input {
+    display: block;
+
+    width: 100%;
+    min-height: 48px;
+
+    padding: 12px 14px;
+
+    box-sizing: border-box;
+
+    border: 1.5px solid #e3d2c3;
+    border-radius: 11px;
+
+    background: #fffdf9;
+    color: #3d2925;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.input-group input::placeholder {
+    color: #ad9b92;
+}
+
+.input-group input:focus {
+    border-color: #a52a3b;
+
+    background: white;
+
+    box-shadow: 0 0 0 4px rgba(165, 42, 59, 0.12);
+}
+
+/* Submit button */
+
+.auth-button {
+    display: block;
+
+    width: 100%;
+    min-height: 50px;
+
+    margin-top: 25px;
+    padding: 13px 18px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: linear-gradient(135deg, #701c28, #a52a3b);
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow: 0 7px 18px rgba(112, 28, 40, 0.22);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.auth-button:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 11px 25px rgba(112, 28, 40, 0.3);
+
+    background: linear-gradient(135deg, #8d2434, #bd3949);
+}
+
+.auth-button:active {
+    transform: translateY(0);
+}
+
+/* Registration / login links */
+
+.auth-footer {
+    margin-top: 25px;
+
+    color: #705b53;
+
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.auth-footer a {
+    margin-left: 4px;
+
+    color: #8c202f;
+
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    color: #c0394b;
+    text-decoration: underline;
+}
+
+/* Back to home */
+
+.back-home {
+    display: inline-block;
+
+    margin-top: 20px;
+
+    color: #76554a;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+.back-home:hover {
+    color: #a52a3b;
+}
+
+/* Error message */
+
+.auth-card .error {
+    padding: 11px 13px;
+
+    margin: 0 0 20px;
+
+    border: 1px solid #f0b7b7;
+    border-radius: 9px;
+
+    background: #fff0f0;
+    color: #a51f2d;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Entry animation */
+
+@keyframes authAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile responsive design */
+
+@media (max-width: 480px) {
+    .auth-overlay {
+        padding: 25px 14px;
+    }
+
+    .auth-card,
+    .register-card {
+        padding: 28px 21px;
+
+        border-radius: 18px;
+    }
+
+    .auth-card h1 {
+        font-size: 27px;
+    }
+
+    .auth-logo {
+        width: 62px;
+        height: 62px;
+
+        font-size: 31px;
+    }
+}

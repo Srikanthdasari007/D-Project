@@ -1,0 +1,315 @@
+/* ==========================================
+   ABOUT PAGE
+========================================== */
+
+.about-page {
+    min-height: 100vh;
+    padding: 50px 25px 60px;
+    background: linear-gradient(
+        135deg,
+        #fff7e6 0%,
+        #ffe8d6 45%,
+        #fce4ec 100%
+    );
+}
+
+/* Main container: space on left and right */
+
+.about-container {
+    width: 100%;
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+/* Main heading */
+
+.about-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.about-badge {
+    display: inline-block;
+    padding: 7px 20px;
+    margin-bottom: 15px;
+    background: #701c28;
+    color: #ffffff;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.about-header h1 {
+    color: #701c28;
+    font-size: clamp(28px, 4vw, 43px);
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.about-header p {
+    color: #69514b;
+    font-size: 17px;
+    line-height: 1.8;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+/* Common card design */
+
+.about-card {
+    padding: 30px 35px;
+    margin-bottom: 25px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 25px rgba(91, 35, 35, 0.10);
+    border: 1px solid rgba(190, 137, 70, 0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(91, 35, 35, 0.15);
+}
+
+/* Card headings */
+
+.about-card h2 {
+    color: #701c28;
+    font-size: 25px;
+    font-weight: 800;
+    margin-bottom: 22px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f1d6a4;
+}
+
+/* Paragraphs and lists */
+
+.about-card p,
+.about-card li {
+    color: #51413d;
+    font-size: 16px;
+    line-height: 1.9;
+}
+
+.about-card ul {
+    padding-left: 25px;
+    margin-bottom: 0;
+}
+
+.about-card li {
+    margin-bottom: 12px;
+}
+
+.about-card li:last-child {
+    margin-bottom: 0;
+}
+
+/* Introduction card */
+
+.introduction-card {
+    border-left: 6px solid #d4a017;
+}
+
+/* Features section */
+
+.features-card {
+    border-top: 5px solid #a52a3b;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.feature-item {
+    padding: 25px;
+    border-radius: 15px;
+    background: linear-gradient(
+        135deg,
+        #fff8e9,
+        #fff0f1
+    );
+    border: 1px solid #f0d7c2;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(
+        135deg,
+        #ffe7c2,
+        #fce0e8
+    );
+}
+
+.feature-icon {
+    font-size: 34px;
+    margin-bottom: 12px;
+}
+
+.feature-item h3 {
+    color: #8a2432;
+    font-size: 19px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.feature-item p {
+    margin-bottom: 0;
+    font-size: 15px;
+}
+
+/* Mission card */
+
+.mission-card {
+    background: linear-gradient(
+        120deg,
+        #701c28,
+        #a52a3b
+    );
+    border: none;
+}
+
+.mission-card h2 {
+    color: #ffe3a3;
+    border-bottom-color: rgba(255, 255, 255, 0.25);
+}
+
+.mission-card p {
+    color: #ffffff;
+    margin-bottom: 0;
+}
+
+/* Technologies card */
+
+.technology-card {
+    border-left: 6px solid #168c83;
+}
+
+.technology-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.technology-list span {
+    padding: 10px 18px;
+    border-radius: 25px;
+    background: #e1f5f1;
+    color: #126c65;
+    border: 1px solid #b8e5dc;
+    font-size: 14px;
+    font-weight: 800;
+    transition: all 0.3s ease;
+}
+
+.technology-list span:hover {
+    background: #168c83;
+    color: #ffffff;
+    transform: translateY(-3px);
+}
+
+/* Developer card */
+
+.developer-card {
+    border-left: 6px solid #d97706;
+}
+
+.developer-card p {
+    margin-bottom: 0;
+}
+
+/* Bottom message */
+
+.about-footer {
+    padding: 30px 15px;
+    text-align: center;
+    margin-top: 35px;
+    border-radius: 18px;
+    background: linear-gradient(
+        135deg,
+        #ffe3a3,
+        #ffc6a5
+    );
+}
+
+.about-footer h3 {
+    color: #701c28;
+    font-size: 25px;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.about-footer p {
+    color: #65413b;
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+/* Tablet and mobile screens */
+
+@media (max-width: 768px) {
+
+    .about-page {
+        padding: 30px 15px 40px;
+    }
+
+    .about-card {
+        padding: 22px;
+        margin-bottom: 20px;
+    }
+
+    .about-card h2 {
+        font-size: 22px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .feature-item {
+        padding: 20px;
+    }
+
+    .about-header p {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .about-page {
+        padding: 25px 12px 35px;
+    }
+
+    .about-card {
+        padding: 18px;
+        border-radius: 13px;
+    }
+
+    .about-card p,
+    .about-card li {
+        font-size: 14px;
+    }
+
+    .about-header h1 {
+        font-size: 28px;
+    }
+
+    .technology-list {
+        gap: 8px;
+    }
+
+    .technology-list span {
+        padding: 8px 13px;
+        font-size: 13px;
+    }
+
+    .about-footer h3 {
+        font-size: 21px;
+    }
+}

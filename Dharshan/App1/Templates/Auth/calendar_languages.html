@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}Choose Your Calendar | Darshan{% endblock %}
+
+{% block content %}
+
+<style>
+    .calendar-selection {
+        min-height: 85vh;
+        padding: 55px 20px;
+        background: linear-gradient(
+            135deg,
+            #fff8e7,
+            #fff0d5,
+            #ffe8e0
+        );
+    }
+
+    .calendar-heading {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .calendar-heading h1 {
+        color: #701c28;
+        font-size: clamp(28px, 4vw, 42px);
+        font-weight: 800;
+        margin-bottom: 12px;
+    }
+
+    .calendar-heading p {
+        color: #65534b;
+        font-size: 17px;
+    }
+
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .calendar-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 28px 22px;
+        min-height: 265px;
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid #f0d7a6;
+        border-radius: 20px;
+        text-decoration: none;
+        color: #38272a;
+        box-shadow: 0 8px 25px rgba(86, 35, 35, 0.09);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .calendar-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 35px rgba(86, 35, 35, 0.17);
+        border-color: #c99b45;
+    }
+
+    .calendar-icon {
+        width: 75px;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        background: #fff0d5;
+        border-radius: 50%;
+        margin-bottom: 18px;
+    }
+
+    .calendar-card h3 {
+        color: #701c28;
+        font-size: 21px;
+        font-weight: 750;
+        margin-bottom: 8px;
+    }
+
+    .native-name {
+        font-size: 16px;
+        font-weight: 600;
+        color: #9a6927;
+        margin-bottom: 12px;
+    }
+
+    .calendar-card p {
+        font-size: 14px;
+        line-height: 1.7;
+        color: #66585a;
+        margin-bottom: 20px;
+    }
+
+    .calendar-open {
+        display: inline-block;
+        margin-top: auto;
+        padding: 10px 22px;
+        border-radius: 25px;
+        background: linear-gradient(135deg, #7a1727, #b83242);
+        color: white;
+        font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+        .calendar-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 550px) {
+        .calendar-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .calendar-selection {
+            padding: 35px 15px;
+        }
+    }
+</style>
+
+<section class="calendar-selection">
+
+    <div class="calendar-heading">
+        <h1>📅 Explore Calendars</h1>
+
+        <p>
+            Choose your preferred calendar to explore dates,
+            months, festivals, and important occasions.
+        </p>
+    </div>
+
+    <div class="calendar-grid">
+
+        {% for item in calendar_types %}
+
+        <a
+            href="{% url 'calendar_detail' item.id %}"
+            class="calendar-card"
+        >
+
+            <div class="calendar-icon">
+                {{ item.icon }}
+            </div>
+
+            <h3>{{ item.name }}</h3>
+
+            <div class="native-name">
+                {{ item.native_name }}
+            </div>
+
+            <p>{{ item.description }}</p>
+
+            <span class="calendar-open">
+                Open Calendar →
+            </span>
+
+        </a>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

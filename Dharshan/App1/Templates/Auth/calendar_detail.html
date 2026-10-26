@@ -1,0 +1,337 @@
+{% extends "base.html" %}
+
+{% block title %}{{ calendar.name }} | Darshan{% endblock %}
+
+{% block content %}
+
+<style>
+    .calendar-page {
+        min-height: 90vh;
+        padding: 35px 15px 60px;
+        background: linear-gradient(135deg, #fff8e7, #fff0d5, #ffe8e0);
+    }
+
+    .calendar-container {
+        max-width: 1100px;
+        margin: auto;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #701c28;
+        text-decoration: none;
+        font-weight: 700;
+    }
+
+    .calendar-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .calendar-header h1 {
+        color: #701c28;
+        font-size: clamp(27px, 4vw, 40px);
+        font-weight: 800;
+    }
+
+    .calendar-header p {
+        color: #66534b;
+        font-size: 16px;
+    }
+
+    .calendar-box {
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 8px 30px rgba(86, 35, 35, 0.12);
+        border: 1px solid #f0d7a6;
+    }
+
+    .month-navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .month-navigation h2 {
+        text-align: center;
+        color: #701c28;
+        font-size: clamp(21px, 3vw, 30px);
+        margin: 0;
+        font-weight: 800;
+    }
+
+    .month-btn {
+        display: inline-block;
+        padding: 10px 16px;
+        background: #701c28;
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .month-btn:hover {
+        background: #a52a3b;
+        color: white;
+    }
+
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        border-top: 1px solid #eadfce;
+        border-left: 1px solid #eadfce;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    .weekday {
+        text-align: center;
+        padding: 15px 2px;
+        background: #701c28;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+        border-right: 1px solid #eadfce;
+        border-bottom: 1px solid #eadfce;
+    }
+
+    .calendar-day {
+        min-height: 85px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-right: 1px solid #eadfce;
+        border-bottom: 1px solid #eadfce;
+        color: #38272a;
+        font-size: 18px;
+        font-weight: 600;
+        background: #fffdf9;
+    }
+
+    .calendar-day:nth-child(odd) {
+    background: #fff8ee;
+}
+    .calendar-day.empty {
+        background: #f8f5f0;
+    }
+
+    .calendar-day.today {
+        background: #f4c95d;
+        color: #701c28;
+        font-weight: 900;
+        position: relative;
+    }
+
+    .calendar-day.today::after {
+        content: "Today";
+        position: absolute;
+        bottom: 5px;
+        font-size: 10px;
+        font-weight: 800;
+    }
+
+    .today-information {
+        margin-top: 22px;
+        padding: 17px;
+        border-radius: 12px;
+        background: #fff3cd;
+        color: #664d03;
+        text-align: center;
+        line-height: 1.8;
+    }
+
+    .calendar-note {
+        text-align: center;
+        margin-top: 22px;
+        color: #66534b;
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    @media (max-width: 600px) {
+        .calendar-box {
+            padding: 12px;
+        }
+
+        .month-navigation {
+            gap: 8px;
+        }
+
+        .month-btn {
+            padding: 8px;
+            font-size: 12px;
+        }
+
+        .calendar-day {
+            min-height: 55px;
+            font-size: 14px;
+        }
+
+        .weekday {
+            padding: 12px 1px;
+            font-size: 11px;
+        }
+
+        .calendar-day.today::after {
+            font-size: 8px;
+        }
+    }
+
+    .year-selector {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 25px;
+}
+
+.year-selector form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.year-selector label {
+    color: #701c28;
+    font-weight: 700;
+}
+
+.year-selector select {
+    padding: 10px 14px;
+    border: 1px solid #c99b45;
+    border-radius: 8px;
+    background: white;
+    color: #701c28;
+    font-size: 16px;
+}
+
+.year-selector button {
+    border: none;
+    cursor: pointer;
+}
+</style>
+
+<section class="calendar-page">
+
+    <div class="calendar-container">
+
+        <a href="{% url 'calendar_languages' %}" class="back-link">
+            ← Back to All Calendars
+        </a>
+
+        <div class="calendar-header">
+
+            <h1>{{ calendar.icon }} {{ calendar.name }}</h1>
+
+            <p>{{ calendar.native_name }}</p>
+
+            <p>{{ calendar.description }}</p>
+
+        </div>
+
+        <div class="calendar-box">
+
+            <div class="month-navigation">
+
+    <a
+        class="month-btn"
+        href="?year={{ previous_year }}&month={{ previous_month }}"
+    >
+        ❮ Previous
+    </a>
+
+    <h2>{{ month_name }} {{ year }}</h2>
+
+    <a
+        class="month-btn"
+        href="?year={{ next_year }}&month={{ next_month }}"
+    >
+        Next ❯
+    </a>
+
+</div>
+
+<div class="year-selector">
+
+    <form method="GET" action="">
+
+        <label for="year">Select Year:</label>
+
+        <select name="year" id="year">
+            {% for selected_year in year_options %}
+                <option
+                    value="{{ selected_year }}"
+                    {% if selected_year == year %}selected{% endif %}
+                >
+                    {{ selected_year }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <input type="hidden" name="month" value="{{ month }}">
+
+        <button type="submit" class="month-btn">
+            Show Calendar
+        </button>
+
+    </form>
+
+</div>
+            <div class="calendar-grid">
+
+                {% for weekday in "Sun,Mon,Tue,Wed,Thu,Fri,Sat" %}
+                    <div class="weekday">
+                        {{ weekday }}
+                    </div>
+                {% endfor %}
+
+                {% for week in weeks %}
+
+                    {% for item in week %}
+
+                        {% if item.day %}
+
+                            <div class="calendar-day{% if item.is_today %} today{% endif %}">
+                                {{ item.day }}
+                            </div>
+
+                        {% else %}
+
+                            <div class="calendar-day empty"></div>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                {% endfor %}
+
+            </div>
+
+            <div class="today-information">
+
+                <strong>Today's Gregorian Date</strong><br>
+
+                {{ today|date:"l, d F Y" }}
+
+            </div>
+
+            <div class="calendar-note">
+
+                This monthly grid currently uses Gregorian dates.
+                Accurate regional festival dates and Panchang details
+                will be added through calendar-specific data sources.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

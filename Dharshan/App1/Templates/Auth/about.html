@@ -1,0 +1,121 @@
+{% extends 'Base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'App_css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="about-page">
+    <div class="about-container">
+
+
+    <!-- Page Heading -->
+    <div class="about-header">
+        <span class="about-badge">ABOUT US</span>
+        <h1>Welcome to Dharshan Portal</h1>
+        <p>Your guide to discovering temples and exploring their spiritual significance.</p>
+    </div>
+
+    <!-- Introduction -->
+    <div class="about-card introduction-card">
+        <h2>🙏 Who We Are</h2>
+        <ul>
+            <li>
+                Dharshan Portal is a web-based platform designed to provide users
+                with a simple and convenient way to access information through a
+                user-friendly interface.
+            </li>
+            <li>
+                Our purpose is to make information easier to access and help users
+                find the information they need quickly and efficiently about temples.
+            </li>
+        </ul>
+    </div>
+
+    <!-- Features -->
+    <div class="about-card features-card">
+        <h2>✨ Our Features</h2>
+
+        <div class="features-grid">
+
+            <div class="feature-item">
+                <div class="feature-icon">🌟</div>
+                <h3>Simple Interface</h3>
+                <p>An easy-to-use and user-friendly design for a smooth experience.</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">🔍</div>
+                <h3>Search Functionality</h3>
+                <p>A search bar that helps users find temple information quickly.</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">🧭</div>
+                <h3>Easy Navigation</h3>
+                <p>Simple navigation to help users explore the portal comfortably.</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">📱</div>
+                <h3>Responsive Design</h3>
+                <p>A responsive layout designed to adapt to different screen sizes.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Mission -->
+    <div class="about-card mission-card">
+        <h2>🎯 Our Mission</h2>
+        <p>
+            Our mission is to build a useful, accessible, and reliable platform
+            that makes finding temple information easier for everyone.
+            We aim to help visitors explore temples and discover useful information
+            in one convenient place.
+        </p>
+    </div>
+
+    <!-- Technologies -->
+    <div class="about-card technology-card">
+        <h2>💻 Technologies Used</h2>
+        <p>
+            Dharshan Portal is developed using modern web technologies to provide
+            a practical and user-friendly web application.
+        </p>
+
+        <div class="technology-list">
+            <span>Python</span>
+            <span>Django</span>
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>MySQL</span>
+        </div>
+    </div>
+
+    <!-- Developer -->
+    <div class="about-card developer-card">
+        <h2>👨‍💻 About the Developer</h2>
+        <p>
+            Dharshan Portal is an individual project developed to demonstrate
+            web development skills and create a practical, attractive,
+            and user-friendly application for discovering temple information.
+        </p>
+    </div>
+
+    <!-- Footer Message -->
+    <div class="about-footer">
+        <h3>Discover. Explore. Experience.</h3>
+        <p>Bringing temple information closer to you.</p>
+    </div>
+
+</div>
+
+
+</section>
+
+{% endblock %}

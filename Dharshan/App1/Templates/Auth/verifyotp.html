@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Verify OTP</title>
+
+    {% load static %}
+
+    <style>
+        /* ==================================
+           VERIFY OTP PAGE
+        ================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(49, 10, 18, 0.82),
+                    rgba(104, 24, 39, 0.70),
+                    rgba(30, 20, 16, 0.80)
+                ),
+                url("{% static 'App_Images/wallpaper.png' %}");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Main container */
+
+        .login {
+            width: 100%;
+            max-width: 430px;
+            padding: 42px 35px;
+            border-radius: 18px;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            border: 1px solid rgba(255, 255, 255, 0.5);
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.35);
+
+            animation: otpAppear 0.7s ease;
+        }
+
+        /* Form */
+
+        .login .form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* OTP icon */
+
+        .otp-icon {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: linear-gradient(
+                135deg,
+                #fff0d2,
+                #ffdaa0
+            );
+
+            color: #873d17;
+            font-size: 34px;
+
+            box-shadow: 0 5px 18px rgba(160, 83, 20, 0.15);
+        }
+
+        /* Heading */
+
+        .login .form h2 {
+            margin-bottom: 12px;
+            text-align: center;
+
+            color: #722d20;
+            font-size: 29px;
+            font-weight: 800;
+        }
+
+        /* Instruction */
+
+        .otp-description {
+            margin-bottom: 28px;
+            text-align: center;
+
+            color: #71645d;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Label */
+
+        .login .form label {
+            display: block;
+            margin-bottom: 10px;
+
+            color: #49352c;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* OTP input */
+
+        .login .form input {
+            width: 100%;
+            height: 58px;
+            padding: 12px;
+
+            border: 1.5px solid #e1d2c6;
+            border-radius: 10px;
+
+            background: #fffaf5;
+            color: #42251b;
+
+            font-size: 25px;
+            font-weight: 700;
+            letter-spacing: 12px;
+            text-align: center;
+
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .login .form input::placeholder {
+            color: #b7a69a;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .login .form input:focus {
+            border-color: #a84c25;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 0 0 4px rgba(168, 76, 37, 0.12);
+        }
+
+        /* Error message */
+
+        .login .form .error {
+            margin-bottom: 18px;
+            padding: 11px 13px;
+
+            border: 1px solid #f2b8b8;
+            border-radius: 8px;
+
+            background: #fff0f0;
+            color: #b42318;
+
+            font-size: 13px;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* Verify button */
+
+        .login .form button {
+            width: 100%;
+            min-height: 50px;
+            margin-top: 25px;
+            padding: 13px 20px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: linear-gradient(
+                135deg,
+                #a84622,
+                #75251e
+            );
+
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 7px 18px rgba(117, 37, 30, 0.22);
+
+            transition: all 0.3s ease;
+        }
+
+        .login .form button:hover {
+            background: linear-gradient(
+                135deg,
+                #c75b2a,
+                #8e2b20
+            );
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 22px rgba(117, 37, 30, 0.30);
+        }
+
+        .login .form button:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+
+        .otp-footer {
+            margin-top: 22px;
+            text-align: center;
+
+            color: #8a776b;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .otp-footer span {
+            color: #8b351f;
+            font-weight: 700;
+        }
+
+        /* Animation */
+
+        @keyframes otpAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile responsive */
+
+        @media (max-width: 480px) {
+            .login {
+                padding: 32px 23px;
+            }
+
+            .login .form h2 {
+                font-size: 25px;
+            }
+
+            .otp-icon {
+                width: 65px;
+                height: 65px;
+                font-size: 29px;
+            }
+
+            .login .form input {
+                height: 54px;
+                font-size: 22px;
+                letter-spacing: 9px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login">
+
+        <form method="post" class="form">
+
+            {% csrf_token %}
+
+            <div class="otp-icon">✉</div>
+
+            <h2>Verify OTP</h2>
+
+            <p class="otp-description">
+                Enter the 6-digit verification code sent to your email
+                to complete the verification process.
+            </p>
+
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+
+            <div>
+                <label for="otp">Verification Code</label>
+
+                <input
+                    type="text"
+                    id="otp"
+                    name="otp"
+                    placeholder="------"
+                    maxlength="6"
+                    pattern="[0-9]{6}"
+                    inputmode="numeric"
+                    autocomplete="one-time-code"
+                    required
+                    autofocus
+                >
+            </div>
+
+            <button type="submit">
+                Verify OTP
+            </button>
+
+            <div class="otp-footer">
+                <span>Secure Verification</span><br>
+                Please do not share your OTP with anyone.
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

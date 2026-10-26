@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Dharshan Portal</title>
+
+    <link rel="stylesheet" href="{% static 'App_css/login_Register.css' %}">
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-overlay">
+
+        <div class="auth-card">
+
+            <div class="auth-logo">
+                🛕
+            </div>
+
+            <span class="auth-badge">WELCOME BACK</span>
+
+            <h1>Login</h1>
+
+            <p class="auth-subtitle">
+                Continue your spiritual journey with Dharshan.
+            </p>
+
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+
+            <form method="post" class="auth-form">
+                {% csrf_token %}
+
+                <div class="input-group">
+                    <label for="username">Username</label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="Username"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="auth-button">
+                    Login to Your Account
+                </button>
+
+            </form>
+
+            <div class="auth-footer">
+                Don't have an account?
+                <a href="{% url 'Register' %}">Create Account</a>
+            </div>
+
+            <a href="/" class="back-home">← Back to Home</a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
