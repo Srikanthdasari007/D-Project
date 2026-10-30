@@ -5,7 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 from django.core.cache import cache
 from datetime import datetime
-
+from django.utils import timezone
 
 TELUGU_MONTHS = {
     1: "జనవరి",
@@ -494,16 +494,15 @@ PURI_CALENDAR_URL = (
 def get_puri_jagannath_events():
 
     """
-    Extracts only upcoming Puri events from the current month.
+    Extracts all upcoming Puri events from the official calendar.
     """
 
-    today = date.today()
+    today = timezone.localdate()
 
     current_year = today.year
     current_month = today.month
 
-    cache_key = f"puri_jagannath_events_v2_{today}"
-
+    cache_key = f"puri_jagannath_events_v3_{today}"
     cached_events = cache.get(cache_key)
 
     if cached_events is not None:
