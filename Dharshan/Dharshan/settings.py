@@ -30,6 +30,11 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
+    'd-project-2.onrender.com',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://d-project-2.onrender.com',
 ]
 
 
