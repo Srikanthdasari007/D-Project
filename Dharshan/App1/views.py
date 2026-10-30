@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.core.mail import send_mail
 from django.contrib.auth.hashers import make_password, check_password
 from django.http import Http404
 from requests.exceptions import RequestException
@@ -11,6 +10,7 @@ from .models import Registration
 from .calendar_data import (TELUGU_CALENDAR_DATA,TELUGU_WEEKDAYS,TELUGU_LABELS,)
 from .festival_data import get_monthly_festivals
 from .temple_events import (extract_ttd_events,get_puri_jagannath_events)
+
 
 
 def Register(request):
@@ -28,73 +28,27 @@ def Register(request):
                 "error": "Username already exists"
             })
 
-        # Generate 6 digit OTP
-        otp = random.randint(100000, 999999)
+        # Check whether email already exists
+        if Registration.objects.filter(email=email).exists():
+            return render(request, "Auth/register.html", {
+                "error": "Email already registered"
+            })
 
-        # Store registration data temporarily in session
-        request.session["Username"] = Username
-        request.session["password"] = password
-        request.session["email"] = email
-        request.session["mobileNumber"] = mobileNumber
-        request.session["otp"] = str(otp)
-
-        # Send OTP to email
-        send_mail(
-            "Darshan - Email Verification OTP",
-            f"Your OTP is: {otp}",
-            "your_email@gmail.com",
-            [email],
-            fail_silently=False
+        # Save registration details directly
+        user = Registration(
+            Username=Username,
+            password=make_password(password),
+            email=email,
+            mobileNumber=mobileNumber
         )
 
-        # Go to OTP verification page
-        return redirect("verifyotp")
+        user.save()
+
+        # Redirect to login page
+        return redirect("login")
 
     return render(request, "Auth/register.html")
 
-
-def verify_otp(request):
-
-    if request.method == "POST":
-
-        entered_otp = request.POST.get("otp")
-
-        stored_otp = request.session.get("otp")
-
-        if entered_otp == stored_otp:
-
-            # Get registration data from session
-            Username = request.session.get("Username")
-            password = request.session.get("password")
-            email = request.session.get("email")
-            mobileNumber = request.session.get("mobileNumber")
-
-            # Create user after OTP verification
-            user = Registration(
-                Username=Username,
-                password=make_password(password),
-                email=email,
-                mobileNumber=mobileNumber
-            )
-
-            user.save()
-
-            # Remove OTP and registration data from session
-            request.session.pop("otp", None)
-            request.session.pop("Username", None)
-            request.session.pop("password", None)
-            request.session.pop("email", None)
-            request.session.pop("mobileNumber", None)
-
-            return redirect("login")
-
-        else:
-
-            return render(request, "Auth/verifyotp.html", {
-                "error": "Invalid OTP"
-            })
-
-    return render(request, "Auth/verifyotp.html")
 
 
 def login_view(request):
