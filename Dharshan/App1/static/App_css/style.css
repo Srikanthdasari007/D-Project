@@ -1,301 +1,138 @@
-/* =========================
-   LOGIN / REGISTER
-========================= */
-.body{
-    background-image: "wallpaper.png";
-}
-.login,
-.register {
-    min-height: 70vh;
+/* =====================================================================
+   DARSHAN PORTAL - CONSOLIDATED STYLESHEET
+   Main file: App1/static/App_css/style.css
+   Page sections are labelled below.
+   ===================================================================== */
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 20px;
-}
-
-.login form,
-.register form {
-    width: 300px;
-
-    padding: 30px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    gap: 8px;
-
-    background-color: white;
-
-    border: 1px solid #ccc;
-    border-radius: 20px;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+/* 1. GLOBAL STYLES */
+:root {
+    --darshan-maroon: #701c28;
+    --darshan-maroon-dark: #4f111b;
+    --darshan-red: #a52a3b;
+    --darshan-gold: #edbe60;
+    --darshan-cream: #fff8ed;
+    --darshan-text: #3d2925;
 }
 
-.login form h2,
-.register form h2 {
-    margin: 0 0 15px;
+* {
+    box-sizing: border-box;
 }
 
-.login form input,
-.register form input {
-    width: 100%;
-    padding: 10px;
-
-    border: 1px solid #aaa;
-    border-radius: 10px;
-
-    outline: none;
+html {
+    scroll-behavior: smooth;
 }
 
-
-/* =========================
-   BUTTON
-========================= */
-
-button {
-    padding: 8px 20px;
-
-    border: none;
-    border-radius: 10px;
-
-    background-color: black;
-    color: white;
-
-    cursor: pointer;
+img {
+    max-width: 100%;
 }
 
-button:hover {
-    background-color: #333;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #fff7e6 0%, #ffe8d6 45%, #fce4ec 100%);
 }
 
-
-/* =========================
-   ERROR
-========================= */
-
+/* General error message */
 .error {
     color: red;
     font-size: 13px;
     text-align: center;
 }
 
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-}
-
-
-/* =========================
-   PAGE CONTENT
-========================= */
-
-h1 {
-    text-align: center;
-    margin: 30px 0;
-}
-
-
-/* =========================
-   CARD CONTAINER
-========================= */
-
+/* 2. HOME PAGE TEMPLE LIST CARDS */
 .Temples_card_List {
     display: grid;
-
-    grid-template-columns: repeat(
-        auto-fit,
-        minmax(280px, 300px)
-    );
-
+    grid-template-columns: repeat(auto-fit, minmax(280px, 300px));
     justify-content: center;
     gap: 30px;
-
     padding: 20px 30px;
-    background: linear-gradient(
-        135deg,
-        #fff7e6 0%,
-        #ffe8d6 45%,
-        #fce4ec 100%
-    );
 }
 
-
-/* =========================
-   CARD
-========================= */
-
-.card {
+.Temples_card_List .card {
     width: 300px;
-
     background-color: white;
-
     border: 1px solid #ddd;
     border-radius: 12px;
-
     overflow: hidden;
-
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-
-    
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-
-/* =========================
-   CARD HOVER
-========================= */
-
-.card:hover {
+.Temples_card_List .card:hover {
     transform: translateY(-5px);
-
-    box-shadow:
-        0 8px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-
-/* =========================
-   IMAGE
-========================= */
-
-.card-img-top {
+.Temples_card_List .card-img-top {
     width: 100%;
     height: 200px;
-
     object-fit: cover;
-
     display: block;
 }
 
-
-/* =========================
-   CARD BODY
-========================= */
-
-.card-body {
+.Temples_card_List .card-body {
     padding: 20px;
-    
 }
 
-
-/* =========================
-   TITLE
-========================= */
-
-.card-title {
+.Temples_card_List .card-title {
     margin: 0 0 15px;
-
     font-size: 20px;
     color: #333;
 }
 
-
-/* =========================
-   BUTTON
-========================= */
-
-.btn {
+.Temples_card_List .btn {
     display: inline-block;
-
     padding: 8px 18px;
-
     background-color: #007bff;
     color: white;
-
     text-decoration: none;
-
     border-radius: 6px;
-
     transition: background-color 0.3s ease;
 }
 
-
-/* =========================
-   BUTTON HOVER
-========================= */
-
-.btn:hover {
+.Temples_card_List .btn:hover {
     background-color: #0056b3;
 }
 
-
-/* =========================
-   MOBILE
-========================= */
-
 @media (max-width: 600px) {
-
     .Temples_card_List {
         grid-template-columns: 1fr;
         padding: 20px;
     }
 
-    .card {
+    .Temples_card_List .card {
         width: 100%;
         max-width: 300px;
         margin: auto;
     }
-
 }
 
-
-
-/* =========================
-   TEMPLE CAROUSEL
-========================= */
-
+/* 3. HOME PAGE TEMPLE CAROUSEL */
 #templeCarousel {
-    width: 1000px !important;
-    height: 500px !important;
-    margin: 30px auto !important;
+    width: min(100% - 32px, 1000px);
+    margin: 30px auto;
 }
 
-#templeCarousel .carousel-inner {
-    width: 1000px !important;
-    height: 500px !important;
-    border-radius: 30px;
-}
-
+#templeCarousel .carousel-inner,
 #templeCarousel .carousel-item {
-    width: 1000px !important;
-    height: 500px !important;
+    width: 100%;
+    border-radius: 24px;
 }
 
-/* All temple images */
 #templeCarousel .carousel-item img {
-    width: 1000px !important;
-    height: 500px !important;
-    object-fit: cover !important;
-    display: block !important;
+    display: block;
+    width: 100%;
+    height: clamp(260px, 48vw, 500px);
+    object-fit: cover;
 }
 
-.Second Div{
-    border: 1px solid black;
-}
-
-.About_Heading{
+/* Legacy About heading class retained for existing HTML */
+.About_Heading {
     justify-content: center;
 }
 
-/* ----- Home page css ----*/
-
-/* =====================================
-   HOME PAGE HERO
-===================================== */
-
+/* 4. HOME PAGE HERO */
 .home-hero {
     min-height: 440px;
     padding: 80px 25px;
@@ -303,12 +140,7 @@ h1 {
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: linear-gradient(
-        135deg,
-        #fff3d6,
-        #f8d9c5,
-        #f3dce7
-    );
+    background: linear-gradient(135deg, #fff3d6, #f8d9c5, #f3dce7);
 }
 
 .home-hero-content {
@@ -391,11 +223,7 @@ h1 {
     transform: translateY(-3px);
 }
 
-
-/* =====================================
-   HOME INTRODUCTION
-===================================== */
-
+/* 5. HOME INTRODUCTION */
 .home-intro {
     padding: 55px 25px;
     text-align: center;
@@ -420,19 +248,10 @@ h1 {
     line-height: 1.9;
 }
 
-
-/* =====================================
-   POPULAR TEMPLES
-===================================== */
-
+/* 6. POPULAR TEMPLES */
 .popular-temples {
     padding: 65px 25px;
-    background: linear-gradient(
-        135deg,
-        #fff7e6 0%,
-        #ffe8d6 45%,
-        #fce4ec 100%
-    );
+    background: linear-gradient(135deg, #fff8e9, #fff0f1);
 }
 
 .section-heading {
@@ -499,10 +318,1290 @@ h1 {
     margin-bottom: 0;
 }
 
+/* 7. BASE TEMPLATE NAVBAR */
+.darshan-navbar {
+    position: relative;
+    z-index: 1000;
+    padding: 12px 24px;
+    background: linear-gradient(105deg, #4f111b, #701c28 60%, #8d2434);
+    border-bottom: 3px solid var(--darshan-gold);
+    box-shadow: 0 5px 18px rgba(47, 10, 16, 0.2);
+}
 
-/* =====================================
-   RESPONSIVE HOME PAGE
-===================================== */
+.darshan-navbar .container-fluid {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.darshan-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff7e4;
+    font-size: 1.35rem;
+    font-weight: 800;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.darshan-brand:hover {
+    color: #ffe2a0;
+}
+
+.temple-logo {
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--darshan-gold);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    font-size: 25px;
+}
+
+.darshan-nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.darshan-nav-links .btn {
+    padding: 8px 13px;
+    border: 1px solid transparent;
+    border-radius: 22px;
+    color: #fff8ed;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.darshan-nav-links .btn:hover,
+.darshan-nav-links .btn:focus-visible {
+    color: var(--darshan-maroon-dark);
+    background: #ffe2a0;
+    transform: translateY(-1px);
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+/* DESKTOP MODE - FIXED NAVBAR */
+@media (min-width: 992px) {
+
+    .darshan-navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    body {
+        padding-top: 75px;
+    }
+}
+
+
+/* MOBILE AND TABLET MODE - NORMAL NAVBAR */
+@media (max-width: 991px) {
+
+    .darshan-navbar {
+        position: relative;
+        width: 100%;
+    }
+
+    body {
+        padding-top: 0;
+    }
+}
+
+.darshan-search {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-left: auto;
+}
+
+.darshan-search input {
+    width: min(230px, 22vw);
+    min-width: 130px;
+    padding: 9px 13px;
+    border: 1px solid #ead7bd;
+    border-radius: 24px;
+    background: #fffdf8;
+    outline: none;
+}
+
+.darshan-search input:focus {
+    border-color: var(--darshan-gold);
+    box-shadow: 0 0 0 3px #edbe6044;
+}
+
+.darshan-search button {
+    padding: 9px 14px;
+    border: 1px solid var(--darshan-gold);
+    border-radius: 24px;
+    background: var(--darshan-gold);
+    color: var(--darshan-maroon-dark);
+    font-weight: 700;
+}
+
+.darshan-search button:hover {
+    background: #ffda83;
+}
+
+/* 8. ABOUT PAGE */
+.about-page {
+    min-height: 100vh;
+    padding: 48px 18px 36px;
+    background: linear-gradient(135deg, #fff8e7, #fff0df 48%, #f8e5e9);
+    color: var(--darshan-text);
+}
+
+.about-container {
+    width: min(1100px, 100%);
+    margin: 0 auto;
+}
+
+.about-header {
+    margin: 0 auto 30px;
+    text-align: center;
+}
+
+.about-header h1 {
+    margin: 16px 0 12px;
+    color: var(--darshan-maroon);
+    font-weight: 900;
+}
+
+.about-header p {
+    max-width: 780px;
+    margin: 0 auto;
+    color: #6b5550;
+    line-height: 1.85;
+}
+
+.about-badge {
+    display: inline-block;
+    padding: 7px 16px;
+    border-radius: 30px;
+    background: #f5e2b8;
+    color: var(--darshan-maroon);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.about-card {
+    margin: 20px 0;
+    padding: clamp(22px, 4vw, 34px);
+    border: 1px solid #eedbbd;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 8px 25px rgba(91, 34, 42, 0.09);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 13px 30px rgba(91, 34, 42, 0.13);
+}
+
+.about-card h2 {
+    margin: 0 0 16px;
+    color: var(--darshan-maroon);
+    font-size: clamp(1.35rem, 3vw, 1.8rem);
+    font-weight: 800;
+}
+
+.about-card p {
+    color: #66524c;
+    line-height: 1.85;
+}
+
+.introduction-card {
+    border-left: 5px solid var(--darshan-gold);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.feature-item {
+    padding: 20px 16px;
+    border-radius: 15px;
+    background: #fff8ed;
+    text-align: center;
+}
+
+.feature-icon {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 2rem;
+}
+
+.feature-item h3 {
+    color: var(--darshan-maroon);
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+.feature-item p {
+    margin-bottom: 0;
+    font-size: 0.93rem;
+}
+
+.mission-card {
+    background: linear-gradient(120deg, #701c28, #8d2434);
+    color: white;
+}
+
+.mission-card h2,
+.mission-card p {
+    color: white;
+}
+
+.technology-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.technology-list li {
+    padding: 9px 14px;
+    border: 1px solid #edbe60;
+    border-radius: 22px;
+    background: #fff8ed;
+    color: var(--darshan-maroon);
+    font-weight: 700;
+}
+
+.developer-card {
+    text-align: center;
+}
+
+.developer-card p {
+    margin-bottom: 8px;
+}
+
+.about-footer {
+    padding: 20px 10px 0;
+    color: #806b63;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* 9. LOGIN AND REGISTRATION PAGES */
+.auth-page {
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image:
+        linear-gradient(
+            135deg,
+            rgba(49, 10, 18, 0.78),
+            rgba(104, 24, 39, 0.60),
+            rgba(30, 20, 16, 0.72)
+        ),
+        url("../App_Images/wallpaper.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.auth-overlay {
+    min-height: 100vh;
+    padding: 40px 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+    padding: 38px 35px;
+    background: rgba(255, 250, 242, 0.94);
+    border: 2px solid rgba(237, 190, 96, 0.9);
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.38), 0 0 25px rgba(255, 196, 91, 0.15);
+    text-align: center;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    animation: authAppear 0.7s ease;
+}
+
+.register-card {
+    max-width: 480px;
+    padding: 30px 35px;
+}
+
+.auth-logo {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #701c28, #b53a42);
+    border: 3px solid #e6bd69;
+    border-radius: 50%;
+    font-size: 36px;
+    box-shadow: 0 5px 18px rgba(112, 28, 40, 0.25);
+}
+
+.auth-badge {
+    display: inline-block;
+    padding: 7px 16px;
+    border-radius: 30px;
+    background: #f7e5bd;
+    color: #701c28;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.auth-card h1 {
+    margin: 18px 0 10px;
+    color: #701c28;
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.auth-subtitle {
+    margin: 0 0 26px;
+    color: #77615a;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.auth-form {
+    text-align: left;
+}
+
+.auth-page .input-group {
+    margin-bottom: 19px;
+}
+
+.auth-page .input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #54202a;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.auth-page .input-group input {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1.5px solid #e3d2c3;
+    border-radius: 11px;
+    background: #fffdf9;
+    color: #3d2925;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.auth-page .input-group input::placeholder {
+    color: #ad9b92;
+}
+
+.auth-page .input-group input:focus {
+    border-color: #a52a3b;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(165, 42, 59, 0.12);
+}
+
+.auth-button {
+    display: block;
+    width: 100%;
+    min-height: 50px;
+    margin-top: 25px;
+    padding: 13px 18px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #701c28, #a52a3b);
+    color: white;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 7px 18px rgba(112, 28, 40, 0.22);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.auth-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 11px 25px rgba(112, 28, 40, 0.3);
+    background: linear-gradient(135deg, #8d2434, #bd3949);
+}
+
+.auth-button:active {
+    transform: translateY(0);
+}
+
+.auth-footer {
+    margin-top: 25px;
+    color: #705b53;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.auth-footer a {
+    margin-left: 4px;
+    color: #8c202f;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    color: #c0394b;
+    text-decoration: underline;
+}
+
+.back-home {
+    display: inline-block;
+    margin-top: 20px;
+    color: #76554a;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.back-home:hover {
+    color: #a52a3b;
+}
+
+.auth-card .error {
+    padding: 11px 13px;
+    margin: 0 0 20px;
+    border: 1px solid #f0b7b7;
+    border-radius: 9px;
+    background: #fff0f0;
+    color: #a51f2d;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+@keyframes authAppear {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 10. OTP VERIFICATION PAGE */
+.otp-page {
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image:
+        linear-gradient(135deg, rgba(49, 10, 18, 0.78), rgba(104, 24, 39, 0.60), rgba(30, 20, 16, 0.72)),
+        url("../App_Images/wallpaper.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.otp-page .login {
+    min-height: 100vh;
+    padding: 30px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.otp-page .login .form {
+    width: 100%;
+    max-width: 440px;
+    padding: 38px 32px;
+    border: 2px solid var(--darshan-gold);
+    border-radius: 22px;
+    background: rgba(255, 250, 242, 0.95);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    text-align: center;
+    backdrop-filter: blur(10px);
+    animation: otpAppear 0.6s ease;
+}
+
+.otp-page .otp-icon {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 42px;
+}
+
+.otp-page .login .form h2 {
+    margin: 0 0 12px;
+    color: var(--darshan-maroon);
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.otp-page .otp-description {
+    color: #77615a;
+    line-height: 1.7;
+}
+
+.otp-page .login .form label {
+    display: block;
+    margin: 18px 0 8px;
+    color: #54202a;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: left;
+}
+
+.otp-page .login .form input {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1.5px solid #e3d2c3;
+    border-radius: 11px;
+    background: #fffdf9;
+    color: #3d2925;
+    font-size: 14px;
+    outline: none;
+}
+
+.otp-page .login .form input:focus {
+    border-color: var(--darshan-red);
+    box-shadow: 0 0 0 4px rgba(165, 42, 59, 0.12);
+}
+
+.otp-page .login .form button {
+    width: 100%;
+    min-height: 48px;
+    margin-top: 22px;
+    padding: 12px;
+    border: 0;
+    border-radius: 11px;
+    background: linear-gradient(135deg, var(--darshan-maroon), var(--darshan-red));
+    color: white;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.otp-page .login .form button:hover {
+    filter: brightness(1.12);
+    transform: translateY(-2px);
+}
+
+.otp-page .login .form a {
+    display: inline-block;
+    margin-top: 22px;
+    color: #8c202f;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.otp-page .login .form a:hover {
+    color: #c0394b;
+    text-decoration: underline;
+}
+
+.otp-page .login .form .error {
+    padding: 10px;
+    border: 1px solid #f0b7b7;
+    border-radius: 9px;
+    background: #fff0f0;
+    color: #a51f2d;
+}
+
+.otp-page .otp-footer {
+    margin-top: 20px;
+    color: #705b53;
+    font-size: 13px;
+}
+
+.otp-page .otp-footer a,
+.otp-page .otp-footer span {
+    color: var(--darshan-maroon);
+    font-weight: 700;
+}
+
+@keyframes otpAppear {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 11. TEMPLE SEARCH PAGE
+   These selectors work with the supplied temple_search.html, which uses
+   .page-heading and does not need an extra body class. */
+body:has(.page-heading) {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fff8e7, #fff0df 50%, #f8e5e9);
+    color: #332725;
+}
+
+body:has(.page-heading) .navbar {
+    background: linear-gradient(105deg, #4f111b, #701c28) !important;
+    padding: 12px 0;
+}
+
+body:has(.page-heading) .navbar .navbar-brand,
+body:has(.page-heading) .navbar a {
+    color: #fff8ed;
+}
+
+body:has(.page-heading) .page-heading {
+    margin: 32px 0 10px;
+    color: var(--darshan-maroon);
+    font-size: 2rem;
+    font-weight: 900;
+    text-align: center;
+}
+
+body:has(.page-heading) form[action*="temple-search"] .input-group {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(123, 28, 28, 0.12);
+}
+
+body:has(.page-heading) input[name="q"] {
+    min-width: 0;
+    min-height: 55px;
+    padding: 12px 18px;
+    background-color: #fffdf8;
+    color: #333333;
+    border: 2px solid #7b1c1c;
+    border-right: none;
+    font-size: 1rem;
+}
+
+body:has(.page-heading) input[name="q"]::placeholder {
+    color: #8a7770;
+    opacity: 1;
+}
+
+body:has(.page-heading) input[name="q"]:focus {
+    background-color: #ffffff;
+    color: #333333;
+    border-color: #a52a2a;
+    box-shadow: none;
+    outline: none;
+}
+
+body:has(.page-heading) .temple-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 450px;
+    overflow: hidden;
+    border: 1px solid #e5d5c0;
+    border-radius: 12px;
+    background-color: #fffdf8;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+body:has(.page-heading) .temple-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
+}
+
+body:has(.page-heading) .temple-card .temple-image {
+    display: block;
+    width: 100%;
+    height: 220px;
+    min-height: 220px;
+    object-fit: cover;
+}
+
+body:has(.page-heading) .temple-card .no-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 220px;
+    min-height: 220px;
+    background-color: #f3e8d5;
+    color: #7b1c1c;
+}
+
+body:has(.page-heading) .temple-card .card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 20px;
+}
+
+body:has(.page-heading) .temple-card .card-title {
+    min-height: 2.8em;
+    color: #7b1c1c;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+body:has(.page-heading) .temple-card .temple-description {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+body:has(.page-heading) .temple-card .btn-darshan,
+body:has(.page-heading) .input-group .btn-darshan {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #7b1c1c !important;
+    border: 2px solid #7b1c1c !important;
+    border-radius: 7px;
+    color: #ffffff !important;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+}
+
+body:has(.page-heading) .input-group .btn-darshan {
+    min-width: 110px;
+    padding: 12px 22px;
+    border-radius: 0;
+    font-weight: 600;
+}
+
+body:has(.page-heading) .temple-card .btn-darshan {
+    display: block;
+    width: 100%;
+}
+
+body:has(.page-heading) .btn-darshan:hover {
+    background-color: #a52a2a !important;
+    border-color: #a52a2a !important;
+    color: #ffffff !important;
+}
+
+/* 12. TEMPLE DETAILS PAGE
+   These selectors work with the supplied temple_details.html, which uses
+   .article-container and does not need an extra body class. */
+body:has(.article-container) {
+    min-height: 100vh;
+    background: #fff8ed;
+    color: #333333;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body:has(.article-container) .navbar {
+    background: linear-gradient(105deg, #4f111b, #701c28) !important;
+    padding: 12px 0;
+}
+
+body:has(.article-container) .navbar a {
+    color: #ffffff;
+}
+
+body:has(.article-container) .article-container {
+    width: min(1050px, calc(100% - 32px));
+    max-width: 1050px;
+    margin: 35px auto;
+    padding: clamp(20px, 4vw, 40px);
+    border: 1px solid #f0dfc7;
+    border-radius: 18px;
+    background: #fffdf8;
+    box-shadow: 0 8px 25px rgba(80, 35, 35, 0.1);
+}
+
+body:has(.article-container) .article-title {
+    margin: 0 0 25px;
+    color: var(--darshan-maroon);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.4;
+    text-align: center;
+}
+
+body:has(.article-container) .article-container .temple-image {
+    display: block;
+    width: 100%;
+    max-width: 650px;
+    max-height: 450px;
+    margin: 0 auto 25px;
+    border-radius: 10px;
+    object-fit: contain;
+}
+
+body:has(.article-container) .article-text {
+    color: #39312e;
+    font-size: 1rem;
+    line-height: 1.85;
+    overflow-wrap: anywhere;
+}
+
+body:has(.article-container) .article-text p {
+    margin-bottom: 16px;
+}
+
+body:has(.article-container) .article-text h2,
+body:has(.article-container) .article-text h3,
+body:has(.article-container) .article-text h4 {
+    margin-top: 25px;
+    margin-bottom: 12px;
+    color: var(--darshan-maroon);
+    font-weight: 700;
+}
+
+body:has(.article-container) .article-text a {
+    color: #8b4513;
+    overflow-wrap: anywhere;
+}
+
+body:has(.article-container) .article-text img {
+    max-width: 100%;
+    height: auto;
+}
+
+body:has(.article-container) .article-text table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+body:has(.article-container) .back-button {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 10px 20px;
+    border: 1px solid var(--darshan-maroon);
+    border-radius: 7px;
+    background: var(--darshan-maroon) !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+body:has(.article-container) .back-button:hover {
+    background: var(--darshan-red) !important;
+    border-color: var(--darshan-red);
+    color: #ffffff !important;
+}
+
+
+/* 13. CALENDAR LANGUAGE SELECTION PAGE */
+
+.calendar-selection {
+    align-items: center;
+    justify-content: center;
+    min-height: 85vh;
+    padding: 55px 20px;
+    background: linear-gradient(
+        135deg,
+        #fff8e7,
+        #fff0d5,
+        #ffe8e0
+    );
+}
+
+.calendar-selection .calendar-heading {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.calendar-selection .calendar-heading h1 {
+    color: #701c28;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.calendar-selection .calendar-heading p {
+    color: #65534b;
+    font-size: 17px;
+}
+
+.calendar-selection .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.calendar-selection .calendar-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 28px 22px;
+    min-height: 265px;
+
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #f0d7a6;
+    border-radius: 20px;
+
+    text-decoration: none;
+    color: #38272a;
+
+    box-shadow: 0 8px 25px rgba(86, 35, 35, 0.09);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.calendar-selection .calendar-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 35px rgba(86, 35, 35, 0.17);
+    border-color: #c99b45;
+}
+
+.calendar-selection .calendar-icon {
+    width: 75px;
+    height: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 40px;
+
+    background: #fff0d5;
+    border-radius: 50%;
+    margin-bottom: 18px;
+}
+
+.calendar-selection .calendar-card h3 {
+    color: #701c28;
+    font-size: 21px;
+    font-weight: 750;
+    margin-bottom: 8px;
+}
+
+.calendar-selection .native-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #9a6927;
+    margin-bottom: 12px;
+}
+
+.calendar-selection .calendar-card p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #66585a;
+    margin-bottom: 20px;
+}
+
+.calendar-selection .calendar-open {
+    display: inline-block;
+    margin-top: auto;
+    padding: 10px 22px;
+    border-radius: 25px;
+
+    background: linear-gradient(
+        135deg,
+        #7a1727,
+        #b83242
+    );
+
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.calendar-selection .calendar-card:hover .calendar-open {
+    color: white;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .calendar-selection .calendar-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Mobile */
+@media (max-width: 550px) {
+    .calendar-selection {
+        padding: 35px 15px;
+    }
+
+    .calendar-selection .calendar-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 14. CALENDAR DETAILS PAGE */
+/* =====================================================
+   14. NORMAL MONTHLY CALENDAR DETAILS PAGE
+   Preserves all selected calendar languages.
+   Displays only weekdays and date numbers.
+   ===================================================== */
+
+.calendar-page {
+    min-height: 85vh;
+    padding: 35px 16px 55px;
+    background: linear-gradient(135deg, #fff8e7, #fff0d5, #ffe8e0);
+    color: #3d2925;
+}
+
+.calendar-page .calendar-container {
+    width: min(1000px, 100%);
+    margin: 0 auto;
+}
+
+/* Back button */
+.calendar-page .back-link {
+    display: inline-block;
+    margin-bottom: 18px;
+    color: var(--darshan-maroon);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.calendar-page .back-link:hover {
+    text-decoration: underline;
+}
+
+/* Calendar heading */
+.calendar-page .calendar-header {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.calendar-page .calendar-header h1 {
+    margin: 10px 0;
+    color: var(--darshan-maroon);
+    font-size: clamp(25px, 4vw, 36px);
+    font-weight: 900;
+}
+
+.calendar-page .calendar-header p {
+    color: #65534b;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* Calendar main box */
+.calendar-page .calendar-box {
+    padding: clamp(16px, 3vw, 28px);
+    border: 1px solid #edd7ae;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 25px rgba(80, 35, 35, 0.1);
+}
+
+/* Previous and next month */
+.calendar-page .month-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.calendar-page .month-navigation h2 {
+    margin: 0;
+    color: var(--darshan-maroon);
+    font-size: clamp(1.1rem, 3vw, 1.55rem);
+    font-weight: 800;
+    text-align: center;
+}
+
+.calendar-page .month-btn {
+    display: inline-block;
+    padding: 9px 15px;
+    border: 1px solid var(--darshan-maroon);
+    border-radius: 22px;
+    background: white;
+    color: var(--darshan-maroon);
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.calendar-page .month-btn:hover {
+    background: var(--darshan-maroon);
+    color: white;
+}
+
+/* Year selection */
+.calendar-page .year-selector {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 22px 0 25px;
+}
+
+.calendar-page .year-selector label {
+    color: var(--darshan-maroon);
+    font-weight: 700;
+}
+
+.calendar-page .year-selector select {
+    min-height: 40px;
+    padding: 7px 12px;
+    border: 1px solid #d9c4a6;
+    border-radius: 9px;
+    background: white;
+    color: #3d2925;
+}
+
+.calendar-page .year-selector button {
+    padding: 9px 16px;
+    border: 0;
+    border-radius: 20px;
+    background: var(--darshan-maroon);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.calendar-page .year-selector button:hover {
+    background: var(--darshan-red);
+}
+
+/* Normal calendar grid */
+.calendar-page .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 8px;
+}
+
+/* Weekday headings - language comes from HTML */
+.calendar-page .weekday {
+    padding: 12px 3px;
+    border-radius: 8px;
+    background: var(--darshan-maroon);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+/* Calendar date cells */
+.calendar-page .calendar-day {
+    position: relative;
+    display: flex;
+    min-height: 75px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 12px;
+    border: 1px solid #f0e3d1;
+    border-radius: 10px;
+    background: #fffdf8;
+    color: #46332d;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.calendar-page .calendar-day:not(.empty):hover {
+    border-color: var(--darshan-gold);
+    background: #fff8e7;
+}
+
+/* Date number */
+.calendar-page .calendar-date-number {
+    color: #46332d;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* Empty spaces */
+.calendar-page .calendar-day.empty {
+    border-color: transparent;
+    background: transparent;
+    pointer-events: none;
+}
+
+/* Highlight current date without adding English text */
+.calendar-page .calendar-day.today {
+    border: 2px solid var(--darshan-red);
+    background: #fff0c8;
+    color: var(--darshan-maroon);
+    font-weight: 900;
+    box-shadow: 0 0 0 3px rgba(237, 190, 96, 0.2);
+}
+
+.calendar-page .calendar-day.today .calendar-date-number {
+    color: var(--darshan-maroon);
+    font-weight: 900;
+}
+
+/* Responsive calendar */
+@media (max-width: 768px) {
+
+    .calendar-page .calendar-grid {
+        gap: 4px;
+    }
+
+    .calendar-page .calendar-day {
+        min-height: 58px;
+        padding: 8px 5px;
+    }
+
+    .calendar-page .weekday {
+        padding: 9px 1px;
+        font-size: 0.78rem;
+    }
+
+    .calendar-page .calendar-date-number {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .calendar-page .month-navigation {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .calendar-page .month-navigation h2 {
+        width: 100%;
+        order: -1;
+    }
+
+    .calendar-page .calendar-day {
+        min-height: 46px;
+        padding: 6px 3px;
+        font-size: 0.85rem;
+    }
+
+    .calendar-page .year-selector {
+        gap: 8px;
+    }
+}
+/* 15. RESPONSIVE STYLES */
+@media (max-width: 1100px) {
+    .darshan-navbar {
+        padding: 12px 16px;
+    }
+
+    .darshan-navbar .container-fluid {
+        flex-wrap: wrap;
+    }
+
+    .darshan-nav-links {
+        gap: 4px;
+    }
+
+    .darshan-search input {
+        width: 180px;
+    }
+}
 
 @media (max-width: 992px) {
     .popular-temple-grid {
@@ -515,7 +1614,134 @@ h1 {
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 900px) {
+    .calendar-selection .calendar-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .darshan-navbar .container-fluid {
+        justify-content: center;
+    }
+
+    .darshan-brand {
+        margin-right: auto;
+    }
+
+    .darshan-nav-links {
+        width: 100%;
+        flex-wrap: wrap;
+        margin: 0;
+    }
+
+    .darshan-search {
+        width: 100%;
+        margin: 0;
+    }
+
+    .darshan-search input {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .about-page {
+        padding: 30px 14px;
+    }
+
+    .calendar-page .calendar-grid {
+        gap: 4px;
+    }
+
+    .calendar-page .calendar-day {
+        min-height: 54px;
+        padding: 7px 5px;
+    }
+
+    .calendar-page .weekday {
+        padding: 8px 1px;
+        font-size: 0.78rem;
+    }
+
+    body:has(.temple-card) .temple-card {
+        min-height: 0;
+    }
+
+    body:has(.article-container) .article-container {
+        width: calc(100% - 20px);
+        margin: 20px auto;
+        padding: 18px;
+    }
+
+    body:has(.article-container) .article-title,
+    body:has(.page-heading) .page-heading {
+        font-size: 1.6rem;
+    }
+
+    body:has(.article-container) .article-container .temple-image {
+        max-height: 300px;
+    }
+
+    .auth-overlay {
+        padding: 25px 14px;
+    }
+
+    .auth-card,
+    .register-card {
+        padding: 28px 21px;
+        border-radius: 18px;
+    }
+
+    .auth-card h1 {
+        font-size: 27px;
+    }
+
+    .auth-logo {
+        width: 62px;
+        height: 62px;
+        font-size: 31px;
+    }
+}
+
+@media (max-width: 600px) {
+    .calendar-selection .calendar-grid,
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .calendar-page .month-navigation {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .calendar-page .month-navigation h2 {
+        width: 100%;
+        order: -1;
+    }
+
+    .calendar-page .calendar-day {
+        min-height: 43px;
+        padding: 5px 3px;
+        font-size: 0.85rem;
+    }
+
+    .calendar-page .calendar-day.today::after {
+        content: "•";
+        right: 4px;
+        bottom: 0;
+        font-size: 1rem;
+    }
+
+    body:has(.page-heading) .temple-card .temple-image,
+    body:has(.page-heading) .temple-card .no-image {
+        height: 190px;
+        min-height: 190px;
+    }
+
     .home-hero {
         padding: 50px 18px;
     }
@@ -544,4 +1770,555 @@ h1 {
     .hero-btn {
         width: 200px;
     }
+
+    body:has(.page-heading) input[name="q"] {
+        font-size: 0.9rem;
+    }
+
+    body:has(.page-heading) .input-group .btn-darshan {
+        min-width: 85px;
+        padding: 10px 14px;
+    }
+}
+
+/* End of consolidated Darshan stylesheet */
+
+/* Extra Feature of home*/
+
+
+/* Dynamic Monthly Festivals */
+
+.monthly-festivals {
+    padding: 45px 5%;
+    margin-top: 35px;
+    background: #fffaf0;
+    border-radius: 14px;
+}
+
+.festivals-heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.festivals-heading h2 {
+    color: #7b1e1e;
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.festivals-heading p {
+    color: #666;
+    font-size: 16px;
+}
+
+.festival-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.festival-card {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #ead9b8;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.festival-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.13);
+}
+
+.festival-icon {
+    font-size: 38px;
+    margin-bottom: 12px;
+}
+
+.festival-content h3 {
+    color: #7b1e1e;
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.festival-date {
+    color: #a05a00;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.festival-description {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.no-festivals {
+    text-align: center;
+    padding: 30px 15px;
+    background: #fff;
+    border-radius: 12px;
+    color: #7b1e1e;
+}
+
+@media (max-width: 900px) {
+    .festival-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .monthly-festivals {
+        padding: 30px 16px;
+    }
+
+    .festival-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .festivals-heading h2 {
+        font-size: 24px;
+    }
+}
+
+
+/* Festival names inside calendar dates */
+
+.calendar-day {
+    min-height: 110px;
+    padding: 8px;
+    overflow-wrap: anywhere;
+}
+
+.festival-list {
+    margin-top: 8px;
+}
+
+.festival-name {
+    background: #fff0e6;
+    color: #701c28;
+    padding: 4px 5px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* =====================================
+   TEMPLE UPCOMING EVENTS SECTION
+===================================== */
+
+.temple-upcoming-section {
+    padding: 45px 5%;
+    background: #fffaf2;
+}
+
+.temple-section-heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.temple-section-heading h2 {
+    color: #701c28;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.temple-section-heading p {
+    color: #777;
+    margin-top: 8px;
+}
+
+.temple-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+    align-items: start;
+}
+
+.temple-feature-card {
+    background: #fff;
+    border: 1px solid #ead9bd;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.09);
+    transition: transform 0.3s ease;
+}
+
+.temple-feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.temple-feature-image {
+    height: 240px;
+    overflow: hidden;
+}
+
+.temple-feature-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.temple-feature-content {
+    padding: 22px;
+}
+
+.temple-feature-content h3 {
+    color: #701c28;
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.temple-card-subtitle {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.temple-feature-content h4 {
+    color: #a57924;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.temple-event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.temple-event-row {
+    padding: 13px;
+    background: #fffaf2;
+    border-left: 4px solid #a57924;
+    border-radius: 7px;
+}
+
+.temple-event-date {
+    color: #701c28;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.temple-event-name {
+    color: #333;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 7px;
+}
+
+.temple-event-row a {
+    color: #a57924;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.temple-event-row a:hover {
+    color: #701c28;
+    text-decoration: underline;
+}
+
+.no-temple-events {
+    color: #777;
+    padding: 15px;
+    background: #fffaf2;
+    border-radius: 7px;
+}
+
+/* Responsive layout */
+
+@media (max-width: 768px) {
+
+    .temple-feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .temple-feature-image {
+        height: 210px;
+    }
+
+    .temple-section-heading h2 {
+        font-size: 24px;
+    }
+
+}
+
+.no-results-message {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 35px 20px;
+    text-align: center;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e5d5bd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.no-results-message h4 {
+    color: #701c28;
+    font-weight: bold;
+}
+
+.no-results-message p {
+    color: #666;
+    margin-bottom: 0;
+}
+
+
+/* =====================================
+   TEMPLE PAGE
+===================================== */
+
+.temple-page {
+    padding: 35px 5%;
+}
+
+.temple-heading {
+    text-align: center;
+    color: #701c28;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.temple-subheading {
+    text-align: center;
+    color: #666;
+    margin-bottom: 35px;
+}
+
+
+/* =====================================
+   TEMPLE CARD GRID
+===================================== */
+
+.Temples_card_List {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 25px;
+
+    align-items: stretch;
+}
+
+
+/* =====================================
+   TEMPLE CARD
+===================================== */
+
+.temple-card {
+    border: 1px solid #ead9c5;
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease;
+
+    height: 100%;
+}
+
+.temple-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.temple-card .card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.temple-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =====================================
+   TEMPLE IMAGE
+===================================== */
+
+.temple-card .card-img-top {
+    width: 100%;
+    height: 210px;
+
+    object-fit: cover;
+}
+
+
+/* =====================================
+   TEMPLE NAME
+===================================== */
+
+.temple-card .card-title {
+    color: #701c28;
+
+    font-weight: bold;
+
+    font-size: 19px;
+
+    margin-bottom: 18px;
+}
+
+
+/* =====================================
+   TEMPLE DETAILS
+===================================== */
+
+.temple-detail {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    margin-bottom: 12px;
+
+    font-size: 14px;
+}
+
+.temple-detail > span {
+    font-size: 18px;
+}
+
+.temple-detail strong {
+    color: #701c28;
+}
+
+.temple-detail p {
+    color: #555;
+
+    margin: 3px 0 0;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================
+   TEMPLE BUTTONS
+===================================== */
+
+/* TEMPLE BUTTONS - SAME HORIZONTAL LINE */
+
+.temple-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 15px;
+    width: 100%;
+}
+
+.temple-buttons .btn {
+    flex: 1;
+    width: 50%;
+    min-width: 0;
+    padding: 10px 5px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 7px;
+}
+
+/* =====================================
+   RESPONSIVE DESIGN
+===================================== */
+
+@media (max-width: 992px) {
+
+    .Temples_card_List {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .Temples_card_List {
+        grid-template-columns: 1fr;
+    }
+
+    .temple-page {
+        padding: 25px 15px;
+    }
+
+}
+
+/* SEARCH RESULT DESCRIPTION */
+
+.temple-description {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.6;
+
+    min-height: 70px;
+    margin-bottom: 15px;
+}
+
+/* SEARCH RESULT CARD */
+
+.temple-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.temple-card .card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.temple-card .card-img-top {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+}
+
+/* BUTTON ALIGNMENT */
+
+.temple-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 15px;
+    width: 100%;
+}
+
+.temple-buttons .btn {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 5px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    text-align: center;
+}
+
+/* NO IMAGE */
+
+.no-image {
+    height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f2e8dc;
+    color: #701c28;
 }
