@@ -289,7 +289,7 @@ def Temples_view(request):
 
         {
             "name": "Jogulamba",
-            "image": "App_Images/jogulamba.jpg",
+            "image": "App_Images/Jogulamba.jpg",
             "timings": "Check official temple schedule",
             "city": "Alampur",
             "district": "Jogulamba Gadwal",
