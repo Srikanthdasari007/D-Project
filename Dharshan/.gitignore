@@ -5,3 +5,5 @@ venv/
 myenv/
 .env
 virtual/
+app_data.json
+staticfiles/
