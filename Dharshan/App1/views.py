@@ -8,7 +8,7 @@ from datetime import date
 import calendar
 import requests
 
-from .models import Registration, Festival
+from .models import Registration, Festival, TempleEvent
 
 from .calendar_data import (
     TELUGU_CALENDAR_DATA,
@@ -16,11 +16,33 @@ from .calendar_data import (
     TELUGU_LABELS,
 )
 
+def get_upcoming_temple_events(temple_code):
 
-from .temple_events import (
-    extract_ttd_events,
-    get_puri_jagannath_events,
-)
+    today = timezone.localdate()
+
+    events = TempleEvent.objects.filter(
+        temple=temple_code,
+        event_date__gte=today
+    ).order_by("event_date")
+
+    event_list = []
+
+    for event in events:
+
+        event_list.append({
+            "date": event.event_date,
+            "day": event.event_date.day,
+            "date_display": event.event_date.strftime("%d %B %Y"),
+            "name": event.name,
+            "temple": event.get_temple_display(),
+            "source": event.source_url,
+            "url": event.source_url,
+            "weekday": event.weekday,
+            "description": event.description,
+        })
+
+    return event_list
+
 
 def Register(request):
 
@@ -143,15 +165,9 @@ def home_view(request):
         for festival in monthly_festivals
     ]
 
-    try:
-        ttd_events = extract_ttd_events()
-    except Exception:
-        ttd_events = []
+    ttd_events = get_upcoming_temple_events("TTD")[:5]
 
-    try:
-        puri_events = get_puri_jagannath_events()
-    except Exception:
-        puri_events = []
+    puri_events = get_upcoming_temple_events("PURI")[:5]
 
     context = {
         "current_month": current_month,
@@ -176,7 +192,7 @@ def temple_events_view(request, temple_type):
 
     if temple_type == "ttd":
 
-        events = extract_ttd_events()
+        events = get_upcoming_temple_events("TTD")
 
         temple_name = "Tirumala Sri Venkateswara Swamy Temple"
 
@@ -192,7 +208,7 @@ def temple_events_view(request, temple_type):
 
     elif temple_type == "puri":
 
-        events = get_puri_jagannath_events()
+        events = get_upcoming_temple_events("PURI")
 
         temple_name = "Shree Jagannath Temple, Puri"
 
