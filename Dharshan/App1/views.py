@@ -1,40 +1,65 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password, check_password
 from django.http import Http404
+from django.utils import timezone
+
 from requests.exceptions import RequestException
 from datetime import date
 import calendar
-import random
 import requests
-from .models import Registration
-from .calendar_data import (TELUGU_CALENDAR_DATA,TELUGU_WEEKDAYS,TELUGU_LABELS,)
-from .festival_data import get_monthly_festivals
-from .temple_events import (extract_ttd_events,get_puri_jagannath_events)
+
+from .models import Registration, Festival
+
+from .calendar_data import (
+    TELUGU_CALENDAR_DATA,
+    TELUGU_WEEKDAYS,
+    TELUGU_LABELS,
+)
 
 
+from .temple_events import (
+    extract_ttd_events,
+    get_puri_jagannath_events,
+)
 
 def Register(request):
 
     if request.method == "POST":
 
-        Username = request.POST.get("Username")
-        password = request.POST.get("password")
-        email = request.POST.get("email")
-        mobileNumber = request.POST.get("mobileNumber")
+        Username = request.POST.get("Username", "").strip()
+        password = request.POST.get("password", "")
+        email = request.POST.get("email", "").strip()
+        mobileNumber = request.POST.get("mobileNumber", "").strip()
 
-        # Check whether username already exists
+        # Check empty fields
+        if not all([Username, password, email, mobileNumber]):
+
+            return render(request, "Auth/register.html", {
+                "error": "All fields are required."
+            })
+
+        # Check username
         if Registration.objects.filter(Username=Username).exists():
+
             return render(request, "Auth/register.html", {
-                "error": "Username already exists"
+                "error": "Username already exists."
             })
 
-        # Check whether email already exists
+        # Check email
         if Registration.objects.filter(email=email).exists():
+
             return render(request, "Auth/register.html", {
-                "error": "Email already registered"
+                "error": "Email already registered."
             })
 
-        # Save registration details directly
+        # Password validation
+        if len(password) < 8:
+
+            return render(request, "Auth/register.html", {
+                "error": "Password must contain at least 8 characters."
+            })
+
+        # Save user
         user = Registration(
             Username=Username,
             password=make_password(password),
@@ -44,38 +69,46 @@ def Register(request):
 
         user.save()
 
-        # Redirect to login page
         return redirect("login")
 
     return render(request, "Auth/register.html")
-
 
 
 def login_view(request):
 
     if request.method == "POST":
 
-        Username = request.POST.get("Username")
-        password = request.POST.get("password")
+        Username = request.POST.get("Username", "").strip()
+        password = request.POST.get("password", "")
 
         try:
 
-            user = Registration.objects.get(Username=Username)
+            user = Registration.objects.get(
+                Username=Username
+            )
 
             if check_password(password, user.password):
+
+                # Prevent session fixation
+                request.session.cycle_key()
+
+                request.session["user_id"] = user.id
+                request.session["username"] = user.Username
+
                 return redirect("home")
 
             return render(request, "Auth/login.html", {
-                "error": "Invalid password"
+                "error": "Invalid password."
             })
 
         except Registration.DoesNotExist:
 
             return render(request, "Auth/login.html", {
-                "error": "Please enter a valid username"
+                "error": "Please enter a valid username."
             })
 
     return render(request, "Auth/login.html")
+
 
 def log_out(request):
     request.session.flush()
@@ -84,27 +117,55 @@ def log_out(request):
 
 def home_view(request):
 
-    today = date.today()
+    today = timezone.localdate()
 
     current_month = today.strftime("%B")
     current_year = today.year
 
-    monthly_festivals = get_monthly_festivals()
+    # Get verified festivals for the current month
+    monthly_festivals = Festival.objects.filter(
+        festival_date__year=current_year,
+        festival_date__month=today.month,
+        location__iexact="Telangana",
+        is_verified=True
+    ).order_by("festival_date")
 
-    # Existing temple events
-    ttd_events = extract_ttd_events()
-    puri_events = get_puri_jagannath_events()
+    monthly_festivals = [
+        {
+            "name": festival.name,
+            "festival_date": festival.festival_date,
+            "formatted_date": festival.festival_date.strftime(
+                "%A, %d %B %Y"
+            ),
+            "description": "",
+            "image": "",
+        }
+        for festival in monthly_festivals
+    ]
+
+    try:
+        ttd_events = extract_ttd_events()
+    except Exception:
+        ttd_events = []
+
+    try:
+        puri_events = get_puri_jagannath_events()
+    except Exception:
+        puri_events = []
 
     context = {
         "current_month": current_month,
         "current_year": current_year,
         "monthly_festivals": monthly_festivals,
-
         "ttd_events": ttd_events,
         "puri_events": puri_events,
     }
 
-    return render(request, "Auth/home.html", context)
+    return render(
+        request,
+        "Auth/home.html",
+        context
+    )
 
 
 def temple_events_view(request, temple_type):
@@ -1021,10 +1082,7 @@ def calendar_languages(request):
 
 def calendar_detail(request, calendar_type):
 
-    # =====================================================
     # FIND THE SELECTED CALENDAR
-    # =====================================================
-
     selected_calendar = next(
         (
             item for item in CALENDAR_TYPES
@@ -1036,12 +1094,9 @@ def calendar_detail(request, calendar_type):
     if selected_calendar is None:
         raise Http404("Calendar not found")
 
-    today = date.today()
+    today = timezone.localdate()
 
-    # =====================================================
-    # GET THE SELECTED YEAR AND MONTH
-    # =====================================================
-
+    # GET SELECTED YEAR AND MONTH
     try:
         year = int(request.GET.get("year", today.year))
         month = int(request.GET.get("month", today.month))
@@ -1056,10 +1111,7 @@ def calendar_detail(request, calendar_type):
         year = today.year
         month = today.month
 
-    # =====================================================
-    # PREVIOUS MONTH NAVIGATION
-    # =====================================================
-
+    # PREVIOUS MONTH
     if month == 1:
         previous_month = 12
         previous_year = year - 1
@@ -1067,10 +1119,7 @@ def calendar_detail(request, calendar_type):
         previous_month = month - 1
         previous_year = year
 
-    # =====================================================
-    # NEXT MONTH NAVIGATION
-    # =====================================================
-
+    # NEXT MONTH
     if month == 12:
         next_month = 1
         next_year = year + 1
@@ -1078,10 +1127,7 @@ def calendar_detail(request, calendar_type):
         next_month = month + 1
         next_year = year
 
-    # =====================================================
-    # GET LANGUAGE CONFIGURATION
-    # =====================================================
-
+    # LANGUAGE CONFIGURATION
     language_config = REGIONAL_CALENDAR_LANGUAGES.get(
         calendar_type,
         REGIONAL_CALENDAR_LANGUAGES["gregorian"]
@@ -1094,10 +1140,7 @@ def calendar_detail(request, calendar_type):
     days_data = {}
     upcoming_festivals = []
 
-    # =====================================================
-    # LOAD EXISTING TELUGU CALENDAR INFORMATION
-    # =====================================================
-
+    # LOAD TELUGU CALENDAR INFORMATION
     if calendar_type == "telugu":
 
         weekdays = TELUGU_WEEKDAYS
@@ -1119,30 +1162,20 @@ def calendar_detail(request, calendar_type):
 
             days_data[day_number] = dict(details)
 
-            existing_festivals = details.get("festivals", [])
+            # Festival dates come from the verified database.
+            days_data[day_number]["festivals"] = []
 
-            if isinstance(existing_festivals, str):
-                existing_festivals = [existing_festivals]
-            elif existing_festivals is None:
-                existing_festivals = []
-
-            days_data[day_number]["festivals"] = list(
-                existing_festivals
-            )
-
-    # =====================================================
-    # LOAD FESTIVALS FROM EXTERNAL API
-    # =====================================================
-
-    monthly_festivals = get_monthly_festivals(
-        year=year,
-        month=month,
-        language=calendar_type
-    )
+    # LOAD VERIFIED FESTIVALS FROM DATABASE
+    monthly_festivals = Festival.objects.filter(
+        festival_date__year=year,
+        festival_date__month=month,
+        location__iexact="Telangana",
+        is_verified=True
+    ).order_by("festival_date")
 
     for festival in monthly_festivals:
 
-        festival_day = festival["festival_date"].day
+        festival_day = festival.festival_date.day
 
         if festival_day not in days_data:
             days_data[festival_day] = {}
@@ -1153,24 +1186,16 @@ def calendar_detail(request, calendar_type):
 
         if isinstance(existing_festivals, str):
             existing_festivals = [existing_festivals]
-        elif existing_festivals is None:
+
+        if existing_festivals is None:
             existing_festivals = []
 
-        festival_name = festival["name"]
-
-        if (
-            festival_name
-            and festival_name not in existing_festivals
-        ):
-            existing_festivals.append(festival_name)
+        if festival.name not in existing_festivals:
+            existing_festivals.append(festival.name)
 
         days_data[festival_day]["festivals"] = existing_festivals
 
-    # =====================================================
-    # BUILD THE CALENDAR GRID
-    # STARTING ON SUNDAY
-    # =====================================================
-
+    # BUILD CALENDAR GRID
     month_calendar = calendar.Calendar(
         firstweekday=6
     ).monthdayscalendar(year, month)
@@ -1184,11 +1209,9 @@ def calendar_detail(request, calendar_type):
         for day_number in week:
 
             if day_number == 0:
-
                 week_data.append({
                     "day": ""
                 })
-
                 continue
 
             day_details = days_data.get(
@@ -1203,6 +1226,7 @@ def calendar_detail(request, calendar_type):
 
             if isinstance(day_festivals, str):
                 day_festivals = [day_festivals]
+
             elif day_festivals is None:
                 day_festivals = []
 
@@ -1215,37 +1239,30 @@ def calendar_detail(request, calendar_type):
                     and day_number == today.day
                 ),
 
-                "tithi": day_details.get(
-                    "tithi",
-                    ""
-                ),
+                "tithi": day_details.get("tithi", ""),
 
                 "nakshatram": day_details.get(
-                    "nakshatram",
-                    ""
+                    "nakshatram", ""
                 ),
 
                 "festivals": day_festivals,
 
                 "is_amavasya": day_details.get(
-                    "is_amavasya",
-                    False
+                    "is_amavasya", False
                 ),
 
                 "is_poornima": day_details.get(
-                    "is_poornima",
-                    False
+                    "is_poornima", False
                 ),
             }
 
             week_data.append(day_item)
 
-            # ADD FESTIVALS TO UPCOMING FESTIVALS
-
-            for festival in day_festivals:
+            # UPCOMING FESTIVAL LIST
+            for festival_name in day_festivals:
 
                 upcoming_festivals.append({
-                    "title": festival,
+                    "title": festival_name,
 
                     "date": (
                         f"{day_number:02d}-"
@@ -1260,10 +1277,7 @@ def calendar_detail(request, calendar_type):
 
         weeks.append(week_data)
 
-    # =====================================================
-    # PREPARE DATA FOR HTML TEMPLATE
-    # =====================================================
-
+    # TEMPLATE CONTEXT
     context = {
         "calendar": selected_calendar,
         "today": today,
@@ -1293,4 +1307,3 @@ def calendar_detail(request, calendar_type):
         "Auth/calendar_detail.html",
         context
     )
-
